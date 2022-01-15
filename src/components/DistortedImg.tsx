@@ -82,7 +82,7 @@ const Background = () => {
     pointerSize
   } = useControls({
     gridSize: { value: 32, min: 4, max: 1024, step: 4},
-    strength: { value: 0.1, min: 0.1, max: 2, step: 0.1},
+    strength: { value: 0.5, min: 0.1, max: 2, step: 0.1},
     relaxation: { value: 0.96, min: 0.7, max: 1, step: 0.01 },
     pointerSize: { value: 1, min: 0.1, max: 20 }
   })
@@ -170,12 +170,12 @@ const Background = () => {
 
           let power = maxDist / Math.sqrt(distance);
           power = THREE.MathUtils.clamp(power, 1, 10)
-          data[index] += strength * 100 * mouseV.x * power;
-          data[index + 1] -= strength * 100 * mouseV.y * power;
+          data[index] += strength * 10 * mouseV.x * power;
+          data[index + 1] -= strength * 10 * mouseV.y * power;
         }
       }
     }
-    mouseV.lerp(defaultMouseV, 0.99)
+    mouseV.lerp(defaultMouseV, 0.2)
     dataTexture.needsUpdate = true
     
   })
