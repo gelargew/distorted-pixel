@@ -79,10 +79,12 @@ const Background = () => {
     gridSize,
     strength,
     relaxation,
+    pointerSize
   } = useControls({
     gridSize: { value: 32, min: 4, max: 1024, step: 4},
     strength: { value: 0.1, min: 0.1, max: 2, step: 0.1},
-    relaxation: { value: 0.96, min: 0.1, max: 1, step: 0.02}
+    relaxation: { value: 0.96, min: 0.7, max: 1, step: 0.01 },
+    pointerSize: { value: 1, min: 0.1, max: 20 }
   })
 
   const {viewport, mouse} = useThree()
@@ -162,13 +164,12 @@ const Background = () => {
         let distance = ((gridMouseX - i) ** 2) / aspect + (gridMouseY - j) ** 2
         let maxDistSq = maxDist ** 2;
 
-        if (distance < maxDistSq) {
+        if (distance < maxDistSq * pointerSize) {
 
           let index = 3 * (i + gridSize * j);
 
           let power = maxDist / Math.sqrt(distance);
-          power = THREE.MathUtils.clamp(power, 0, 10)
-          if(distance <gridSize/32) power = 1;
+          power = THREE.MathUtils.clamp(power, 1, 10)
           data[index] += strength * 100 * mouseV.x * power;
           data[index + 1] -= strength * 100 * mouseV.y * power;
         }
