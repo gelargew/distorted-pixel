@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as THREE from 'three'
 import { Box, OrbitControls, Plane, shaderMaterial, Stats, useTexture } from "@react-three/drei";
 import { Canvas, useThree, extend, useFrame, ThreeEvent } from "@react-three/fiber";
