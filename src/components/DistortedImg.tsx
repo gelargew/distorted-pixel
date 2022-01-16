@@ -192,7 +192,6 @@ const Background = ({
 
   return (
     <group>
-      <OrbitControls />
       <Plane ref={ref} args={[viewport.width, viewport.height]} {...bind()}>
         <shaderMat 
         attach='material' 
