@@ -53,7 +53,7 @@ export default function App() {
       <nav>
         {links.map(link => <Link key={link[0]} to={`/${link[0]}`}>{link[0]}</Link>)}
         <label htmlFor='img-upload'>
-          upload own image
+          add image
         </label>
         <input id='img-upload' type={'file'} onChange={addImage} />
       </nav>
