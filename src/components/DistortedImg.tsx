@@ -14,7 +14,6 @@ export default function DistortedImg({ image = imgURL, grid = 32 }) {
   return (
     <>
       <Canvas>
-        <Stats />
         <Suspense fallback={null}>
           <Background image={image} grid={grid} />
         </Suspense>      

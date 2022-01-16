@@ -27,6 +27,11 @@ nav {
 
 nav a, nav label {
   transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  font-size: xx-large;
+}
+
+nav label {
+  color: brown;
 }
 
 a:hover, label:hover {
