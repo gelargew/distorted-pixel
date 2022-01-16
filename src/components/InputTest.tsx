@@ -1,13 +1,21 @@
-import { FormEvent, useEffect, useRef } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 
 export default function InputTest() {
     const ref = useRef<HTMLInputElement>(null!)
+    const [image, setImage] = useState<string>('')
 
     const handleInput = (e: FormEvent<HTMLInputElement>) => {
-        console.log(e)
+        const files = (e.target as HTMLInputElement).files
+        if (files) {
+            const a = setImage(URL.createObjectURL(files[0]))
+        }
     }
 
     return (
-        <input ref={ref} type='file' name="upload" placeholder="image upload" onInput={handleInput} />
+        <>
+            <input ref={ref} type='file' onChange={handleInput} />
+            <img src={image} />
+        </>
+        
     )
 }
