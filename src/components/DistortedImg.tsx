@@ -9,18 +9,16 @@ import { useControls } from 'leva'
 
 import imgURL from '../images/shoe.jpg'
 
-export default function DistortedImg() {
+export default function DistortedImg({ image = imgURL, grid = 32 }) {
 
   return (
     <>
       <Canvas>
         <Stats />
         <Suspense fallback={null}>
-          <Background />
-        </Suspense>
-        
-      </Canvas>
-      
+          <Background image={image} grid={grid} />
+        </Suspense>      
+      </Canvas>     
     </>
   )
 }
@@ -74,14 +72,17 @@ const ShaderMat = shaderMaterial(
 extend({ ShaderMat })
 
 
-const Background = () => {
+const Background = ({
+  image = imgURL,
+  grid = 32
+}) => {
   const {
     gridSize,
     strength,
     relaxation,
     pointerSize
   } = useControls({
-    gridSize: { value: 32, min: 4, max: 1024, step: 4},
+    gridSize: { value: grid, min: 4, max: 1024, step: 4},
     strength: { value: 0.5, min: 0.1, max: 2, step: 0.1},
     relaxation: { value: 0.96, min: 0.7, max: 1, step: 0.01 },
     pointerSize: { value: 1, min: 0.1, max: 20 }
@@ -90,7 +91,7 @@ const Background = () => {
   const {viewport, mouse} = useThree()
   const {width, height} = viewport
   const ref = useRef<THREE.Mesh>(null!)
-  const texture = useTexture(imgURL)
+  const texture = useTexture(image)
   const resolution = new THREE.Vector4(1, 1, 1, 1)
   const aspectRatio = texture.image.height / texture.image.width
   const mouseV = new THREE.Vector2(0, 0)
@@ -120,7 +121,7 @@ const Background = () => {
     texture.magFilter = THREE.NearestFilter
     texture.minFilter = THREE.NearestFilter;
     return texture
-  }, [gridSize])
+  }, [gridSize, image])
 
 
   useLayoutEffect(() => {    
@@ -138,7 +139,7 @@ const Background = () => {
     ref.current.material.uniforms.uDataTexture.value = dataTexture;
     ref.current.material.uniforms.uDataTexture.value.needsUpdate = true;
     console.log(resolution, mouse.x)
-  }, [viewport.width, viewport.height, gridSize])
+  }, [viewport.width, viewport.height, gridSize, image])
 
 
   useFrame((state, delta) => {

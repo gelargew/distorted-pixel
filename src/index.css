@@ -16,3 +16,29 @@ body {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
+
+nav {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a, nav label {
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+a:hover, label:hover {
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+input[type="file"] {
+  display: none;
+}
